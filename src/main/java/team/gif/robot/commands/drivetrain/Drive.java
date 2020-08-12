@@ -8,6 +8,7 @@
 package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.OI;
 import team.gif.robot.subsystems.Drivetrain;
@@ -44,6 +45,8 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        /*ChassisSpeeds(0,0,);
+
         leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
         rightSpeed = oi.driver.getY(GenericHID.Hand.kLeft) + oi.driver.getX(GenericHID.Hand.kRight);
         if (leftSpeed < 0.05 && leftSpeed > -0.05) {
@@ -62,13 +65,13 @@ public class Drive extends CommandBase {
         Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
 
         SmartDashboard.putNumber("Left Percent", leftSpeed);
-        SmartDashboard.putNumber("Right Percent", rightSpeed);
+        SmartDashboard.putNumber("Right Percent", rightSpeed);*/
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Drivetrain.getInstance().setSpeed(0, 0);
+       // Drivetrain.getInstance().setSpeed(0, 0);
     }
 
     // Returns true when the command should end.
