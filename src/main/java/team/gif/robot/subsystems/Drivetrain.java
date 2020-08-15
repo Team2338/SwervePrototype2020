@@ -61,7 +61,10 @@ public class Drivetrain extends SubsystemBase {
     // per second to the left, and rotation at 1.5 radians per second
     // counterclockwise.
     //ChassisSpeeds speeds = new ChassisSpeeds(1.0, 3.0, 1.5);
-    ChassisSpeeds speeds = new ChassisSpeeds(OI.getInstance().driver.getY(GenericHID.Hand.kLeft), OI.getInstance().driver.getX(GenericHID.Hand.kLeft), OI.getInstance().driver.getX(GenericHID.Hand.kRight));
+    ChassisSpeeds speeds;
+    public void drive(double x1, double y1, double x2) {
+        speeds = new ChassisSpeeds(x1, y1, x2);
+    }
 
     // Convert to module states
     SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(speeds);

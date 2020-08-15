@@ -45,6 +45,11 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        Drivetrain.getInstance().drive(
+                OI.getInstance().driver.getY(GenericHID.Hand.kLeft),
+                OI.getInstance().driver.getX(GenericHID.Hand.kLeft),
+                OI.getInstance().driver.getX(GenericHID.Hand.kRight)
+                );
         /*ChassisSpeeds(0,0,);
 
         leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
