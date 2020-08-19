@@ -8,8 +8,11 @@
 package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team.gif.lib.math.MathUtil;
+import team.gif.lib.math.Vector2d;
 import team.gif.robot.OI;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.ExampleSubsystem;
@@ -21,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Drive extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     //private final Drivetrain m_subsystem;
+    private final Drivetrain drive = Drivetrain.getInstance();
+    //private final Notifier notifier;
 
     /**
      * Creates a new ExampleCommand.
@@ -40,43 +45,24 @@ public class Drive extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Drivetrain.getInstance().drive(
-                OI.getInstance().driver.getY(GenericHID.Hand.kLeft),
-                OI.getInstance().driver.getX(GenericHID.Hand.kLeft),
-                OI.getInstance().driver.getX(GenericHID.Hand.kRight)
-                );
-        /*ChassisSpeeds(0,0,);
-
-        leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
-        rightSpeed = oi.driver.getY(GenericHID.Hand.kLeft) + oi.driver.getX(GenericHID.Hand.kRight);
-        if (leftSpeed < 0.05 && leftSpeed > -0.05) {
-            leftSpeed = 0;
-        }
-        if (rightSpeed < 0.05 && rightSpeed > -0.05) {
-            rightSpeed = 0;
-        }
-        if (leftSpeed < -1 || leftSpeed > 1) {
-            leftSpeed = leftSpeed / Math.abs(leftSpeed);
-        }
-        if (rightSpeed < -1 || rightSpeed > 1) {
-            rightSpeed = rightSpeed / Math.abs(rightSpeed);
-        }
-
-        Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
-
-        SmartDashboard.putNumber("Left Percent", leftSpeed);
-        SmartDashboard.putNumber("Right Percent", rightSpeed);*/
+        double x = MathUtil.deadband(OI.getInstance().driver.getX(GenericHID.Hand.kLeft), 0.05);
+        double y = MathUtil.deadband(-OI.getInstance().driver.getY(GenericHID.Hand.kLeft), 0.05);
+        double rotVal = MathUtil.deadband(OI.getInstance().driver.getX(GenericHID.Hand.kRight), 0.05);
+        Vector2d transVecR = new Vector2d(x, y);
+        drive.set(0, transVecR.scale(0.1), 0.1 * rotVal);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
        // Drivetrain.getInstance().setSpeed(0, 0);
+        //notifier.stop();
     }
 
     // Returns true when the command should end.
