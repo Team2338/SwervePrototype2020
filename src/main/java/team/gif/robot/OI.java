@@ -25,8 +25,8 @@ public class OI {
      * private final JoystickButton leftTrigger = new JoystickButton(leftStick, 0);
      */
 
-    public final XboxController driver = new XboxController(RobotMap.DRIVER_CONTROLLER_ID);
-    public final XboxController aux = new XboxController(RobotMap.AUX_CONTROLLER_ID);
+    public final XboxController driver = new XboxController(0);
+    public final XboxController aux = new XboxController(1);
 //    public final JoystickButton dLS = new JoystickButton(driver, 9);
 //    public final JoystickButton dRS = new JoystickButton(driver, 10);
 

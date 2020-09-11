@@ -19,10 +19,24 @@ public class DifferentialModule {
     public DifferentialModule(int motorID_1, int motorID_2, int encoderID, Vector2d modulePos) {//, double kV, double wheelDiameter, double gearRatio) {
         motor1 = new CANSparkMax(motorID_1, CANSparkMaxLowLevel.MotorType.kBrushless);
         motor2 = new CANSparkMax(motorID_2, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+        motor1.restoreFactoryDefaults();
+        motor2.restoreFactoryDefaults();
+
         motor1.setIdleMode(CANSparkMax.IdleMode.kCoast);
         motor2.setIdleMode(CANSparkMax.IdleMode.kCoast);
         motor1.setOpenLoopRampRate(0.1);
         motor2.setOpenLoopRampRate(0.1);
+        /*motor1.isSoftLimitEnabled(CANSparkMax.SoftLimitDirection.kForward);
+        motor1.isSoftLimitEnabled(CANSparkMax.SoftLimitDirection.kReverse);
+        motor2.isSoftLimitEnabled(CANSparkMax.SoftLimitDirection.kForward);
+        motor2.isSoftLimitEnabled(CANSparkMax.SoftLimitDirection.kReverse);
+        motor1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 1);
+        motor1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, -1);
+        motor2.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 1);
+        motor2.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, -1);*/
+        //motor1.setSmartCurrentLimit(70);
+        //motor2.setSmartCurrentLimit(70);
         encoder = new AnalogPotentiometer(encoderID);
         this.modulePos = modulePos;
         angleController = new PIDController(0.4, 0, 0);

@@ -51,8 +51,8 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double x = MathUtil.deadband(OI.getInstance().driver.getX(GenericHID.Hand.kLeft), 0.05);
-        double y = MathUtil.deadband(-OI.getInstance().driver.getY(GenericHID.Hand.kLeft), 0.05);
+        double x = MathUtil.deadband(OI.getInstance().driver.getY(GenericHID.Hand.kLeft), 0.05);
+        double y = MathUtil.deadband(OI.getInstance().driver.getX(GenericHID.Hand.kLeft), 0.05);
         double rotVal = MathUtil.deadband(OI.getInstance().driver.getX(GenericHID.Hand.kRight), 0.05);
         Vector2d transVecR = new Vector2d(x, y);
         drive.set(0, transVecR.scale(0.1), 0.1 * rotVal);
